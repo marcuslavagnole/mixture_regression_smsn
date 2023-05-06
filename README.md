@@ -1,4 +1,4 @@
-Directory with R routines used in:
+Repository with R routines used in:
 **Flexible robust mixture regression modeling**, REVSTAT, Statistical Journal, 20(1), 101-115, 2022.
 
 - **MCMC_MixReg_SkewNormal.R** : MCMC routine for mixture of regressions based on the skew normal distribution;
