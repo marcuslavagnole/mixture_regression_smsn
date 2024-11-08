@@ -15,6 +15,7 @@ atualizarS<-function(dados,p,mu,covariaveis,beta,sigma2,lambda,nu,N,numcomp,numc
   index<-rowSums(aux)
   return(cbind(index,m))
 }
+
 # Full conditional for the weights
 atualizarP<-function(s,numcomp){
 	priori<-matrix(NA,1,numcomp)
@@ -27,6 +28,7 @@ atualizarP<-function(s,numcomp){
 	posteriori<-rdirichlet(1,alpha)
 	return(posteriori)
 }
+
 # Full conditional for beta
 atualizarBETA<-function(b,B,x,mu,tau,u,dados,N){
   B.inv<- chol2inv(chol(B))
@@ -35,6 +37,7 @@ atualizarBETA<-function(b,B,x,mu,tau,u,dados,N){
   beta<- rmvnorm(1,media,sigma)
   return(beta)
 }
+
 # Full conditional for tau
 atualizarTAU<-function(c,C,b,B,x,beta,mu,u,dados,N){
   alpha <- c+N/2+1/2
@@ -42,6 +45,7 @@ atualizarTAU<-function(c,C,b,B,x,beta,mu,u,dados,N){
   tau<-sqrt(1/rgamma(1, alpha, beta))
   return(tau)
 }
+
 # Full conditional for latent variable in asymmetry
 atualizarZ<-function(dados,x,beta,mu,tau,psi,u,N){
   media<-(dados-mu-x%*%beta)*psi/(tau^2+psi^2)
@@ -49,6 +53,7 @@ atualizarZ<-function(dados,x,beta,mu,tau,psi,u,N){
   z<-rtnorm(N,media,sd,lower=0,upper=Inf)
   return(z)
 }
+
 # Full conditional for the latent variable in the degrees of freedom
 atualizarU<-function(nu,dados,x,beta,mu,psi,tau,z,N){
   alpha<-c(rep(nu/2+1,N))
@@ -56,6 +61,7 @@ atualizarU<-function(nu,dados,x,beta,mu,psi,tau,z,N){
   u<-rgamma(N,alpha,beta)
   return(u)
 }
+
 # Full conditional for the degrees of freedom 
 condicionalNU<-function(nu,u,N){
   d<-4/(1+sqrt(2))
@@ -64,6 +70,7 @@ condicionalNU<-function(nu,u,N){
   funcao<-priori+verossi
   return(funcao)
 }
+
 # Metropolis-Hasting for the degrees of freedom 
 atualizarNU<-function(nu,u,N,clap,clap.aux,M0,t){
   valoratual<-nu
@@ -86,6 +93,7 @@ atualizarNU<-function(nu,u,N,clap,clap.aux,M0,t){
   p.auxiliar<-M0+gama2*(NUfinal-M0)
   return(c(NUfinal,contador,termometro,termometro.aux,p.auxiliar))
 }
+
 # Full conditional for the hierarchical prior
 atualizarC<-function(g1,g2,alpha,numcomp,vetor.tau){
   a<-g1+numcomp*alpha
