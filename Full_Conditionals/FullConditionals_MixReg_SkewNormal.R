@@ -15,6 +15,7 @@ atualizarS<-function(dados,p,mu,covariaveis,beta,sigma2,lambda,N,numcomp,numcov)
   index<-rowSums(aux)
   return(cbind(index,m))
 }
+
 # Full conditional for the weights
 atualizarP<-function(s,numcomp){
 	priori<-matrix(NA,1,numcomp)
@@ -27,6 +28,7 @@ atualizarP<-function(s,numcomp){
 	posteriori<-rdirichlet(1,alpha)
 	return(posteriori)
 }
+
 # Full conditional for beta
 atualizarBETA<-function(b,B,x,mu,tau,dados,N){
   B.inv<- chol2inv(chol(B))
@@ -35,6 +37,7 @@ atualizarBETA<-function(b,B,x,mu,tau,dados,N){
   beta<- rmvnorm(1,media,sigma)
   return(beta)
 }
+
 # Full conditional for tau
 atualizarTAU<-function(c,C,b,B,x,beta,mu,dados,N){
   alpha <- c+N/2+1/2
@@ -42,6 +45,7 @@ atualizarTAU<-function(c,C,b,B,x,beta,mu,dados,N){
   tau<-sqrt(1/rgamma(1, alpha, beta))
   return(tau)
 }
+
 # Full conditional for latent variable in asymmetry
 atualizarZ<-function(dados,x,beta,mu,tau,psi,N){
   media<-(dados-x%*%beta-mu)*psi/(tau^2+psi^2)
@@ -49,6 +53,7 @@ atualizarZ<-function(dados,x,beta,mu,tau,psi,N){
   z<-rtnorm(N,media,sd,lower=0,upper=Inf)
   return(z)
 }
+
 # Full conditional for the hierarchical prior
 atualizarC<-function(g1,g2,alpha,numcomp,vetor.tau){
   a<-g1+numcomp*alpha
