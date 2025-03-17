@@ -2,7 +2,7 @@ This repository provides the R routines from the article [Flexible robust mixtur
 
 The paper provides a flexible methodology for the class of finite mixture of regressions with a scale mixture of skew-normal errors (SMSN-FMRM), relaxing the constraints previously imposed during the estimation process[^1]. A Bayesian inference procedure is developed based on the data augmentation principle and Markov chain Monte Carlo (MCMC) algorithms. A simulation study is implemented to understand the possible effects caused by the restrictions, and an example with a well-known dataset illustrates the performance of the proposed methods.
 
-This repo includes:
+The repo includes:
 
 - **MCMC_MixReg_SkewNormal.R** : MCMC routine for the mixture of regressions based on the skew-normal distribution;
 - **MCMC_MixReg_SkewT.R** : MCMC routine for the mixture of regressions based on the skew-t distribution;
