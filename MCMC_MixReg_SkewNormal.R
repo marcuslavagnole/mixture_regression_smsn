@@ -59,20 +59,20 @@ C<-rgamma(1,g1,g2)
 
 #MCMC
 for(k in 2:NN){
-	p[k,]<-atualizarP(s[k-1,],numcomp)
-	aux<-cbind(s[k-1,],dados,covariaveis)
-	for (i in 1:numcomp){
-	  y<-subset(aux, aux[,1] == i)
-		z<-atualizarZ(y[,2],y[,3:(2+numcov)],beta[k-1,((i*numcov)-numcov+1):(i*numcov)],mu[k-1,i],tau[k-1,i],psi[k-1,i],length(y[,1]))
-		x<-cbind(y[,3:(2+numcov)],z)
-		beta.aux<-c(beta[k-1,((i*numcov)-numcov+1):(i*numcov)],psi[k-1,i])
-		tau[k,i]<-atualizarTAU(c,C,b,B,x,beta.aux,mu[k-1,i],y[,2],length(y[,1]))
-		beta.atualiza<-atualizarBETA(b,B,x,mu[k-1,i],tau[k,i],y[,2],length(y[,1]));beta[k,((i*numcov)-numcov+1):(i*numcov)]<-beta.atualiza[1:numcov];psi[k,i]<-beta.atualiza[numcov+1]
-		#Original parameters
-		sigma2[k,i]<- tau[k,i]^2+psi[k,i]^2
-		lambda[k,i]<- psi[k,i]/tau[k,i]
-		mu[k,i]<- -sqrt(sigma2[k,i])*(lambda[k,i]/sqrt(1+lambda[k,i]^2))*sqrt(2/pi)
-	}
-	C<-atualizarC(g1,g2,c,numcomp,tau[k,])
-	s.aux<-atualizarS(dados,p[k,],mu[k,],covariaveis,beta[k,],sigma2[k,],lambda[k,],length(dados),numcomp,numcov);s[k,]<-s.aux[,1];p1[k,]<-s.aux[,2];p2[k,]<-s.aux[,3]
+  p[k,]<-atualizarP(s[k-1,],numcomp)
+  aux<-cbind(s[k-1,],dados,covariaveis)
+  for (i in 1:numcomp){
+    y<-subset(aux, aux[,1] == i)
+    z<-atualizarZ(y[,2],y[,3:(2+numcov)],beta[k-1,((i*numcov)-numcov+1):(i*numcov)],mu[k-1,i],tau[k-1,i],psi[k-1,i],length(y[,1]))
+    x<-cbind(y[,3:(2+numcov)],z)
+    beta.aux<-c(beta[k-1,((i*numcov)-numcov+1):(i*numcov)],psi[k-1,i])
+    tau[k,i]<-atualizarTAU(c,C,b,B,x,beta.aux,mu[k-1,i],y[,2],length(y[,1]))
+    beta.atualiza<-atualizarBETA(b,B,x,mu[k-1,i],tau[k,i],y[,2],length(y[,1]));beta[k,((i*numcov)-numcov+1):(i*numcov)]<-beta.atualiza[1:numcov];psi[k,i]<-beta.atualiza[numcov+1]
+    #Original parameters
+    sigma2[k,i]<- tau[k,i]^2+psi[k,i]^2
+    lambda[k,i]<- psi[k,i]/tau[k,i]
+    mu[k,i]<- -sqrt(sigma2[k,i])*(lambda[k,i]/sqrt(1+lambda[k,i]^2))*sqrt(2/pi)
+  }
+C<-atualizarC(g1,g2,c,numcomp,tau[k,])
+s.aux<-atualizarS(dados,p[k,],mu[k,],covariaveis,beta[k,],sigma2[k,],lambda[k,],length(dados),numcomp,numcov);s[k,]<-s.aux[,1];p1[k,]<-s.aux[,2];p2[k,]<-s.aux[,3]
 }
