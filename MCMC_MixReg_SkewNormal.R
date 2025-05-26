@@ -73,6 +73,6 @@ for(k in 2:NN){
     lambda[k,i]<- psi[k,i]/tau[k,i]
     mu[k,i]<- -sqrt(sigma2[k,i])*(lambda[k,i]/sqrt(1+lambda[k,i]^2))*sqrt(2/pi)
   }
-C<-atualizarC(g1,g2,c,numcomp,tau[k,])
-s.aux<-atualizarS(dados,p[k,],mu[k,],covariaveis,beta[k,],sigma2[k,],lambda[k,],length(dados),numcomp,numcov);s[k,]<-s.aux[,1];p1[k,]<-s.aux[,2];p2[k,]<-s.aux[,3]
+  C<-atualizarC(g1,g2,c,numcomp,tau[k,])
+  s.aux<-atualizarS(dados,p[k,],mu[k,],covariaveis,beta[k,],sigma2[k,],lambda[k,],length(dados),numcomp,numcov);s[k,]<-s.aux[,1];p1[k,]<-s.aux[,2];p2[k,]<-s.aux[,3]
 }
