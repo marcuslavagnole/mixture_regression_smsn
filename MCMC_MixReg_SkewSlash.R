@@ -21,7 +21,7 @@ dados<-yx[,1]
 covariaveis<-yx[,2:(1+dim(covariaveis)[2])]
 numcov<-dim(covariaveis)[2]
 
-# Set hyperparameters values
+# Set hyperparameter values
 b<-rep(0,numcov+1)              # beta
 B<-diag(c(rep(100,numcov),100)) # beta
 c<- 2.5                         # tau
@@ -30,7 +30,7 @@ phi<-0.5                        # hierarchical prior
 g1<-0.5+(r-1)/2                 # hierarchical prior
 g2<-g1/(phi*var(dados))         # hierarchical prior
 
-# Define number of iterations and components  
+# Define the number of iterations and components  
 NN=20000
 numcomp<-2
 
