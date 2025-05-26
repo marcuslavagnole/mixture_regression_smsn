@@ -18,15 +18,15 @@ atualizarS<-function(dados,p,mu,covariaveis,beta,sigma2,lambda,N,numcomp,numcov)
 
 # Full conditional for the weights
 atualizarP<-function(s,numcomp){
-	priori<-matrix(NA,1,numcomp)
-	verossi<-matrix(NA,1,numcomp)
-	for(j in 1:numcomp){
-	  priori[1,j]<-4
-		verossi[1,j]<-sum(s == j)
-	}
-	alpha<-priori+verossi
-	posteriori<-rdirichlet(1,alpha)
-	return(posteriori)
+  priori<-matrix(NA,1,numcomp)
+  verossi<-matrix(NA,1,numcomp)
+  for(j in 1:numcomp){
+    priori[1,j]<-4
+    verossi[1,j]<-sum(s == j)
+  }
+  alpha<-priori+verossi
+  posteriori<-rdirichlet(1,alpha)
+  return(posteriori)
 }
 
 # Full conditional for beta
