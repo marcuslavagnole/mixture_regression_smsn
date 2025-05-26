@@ -46,7 +46,7 @@ atualizarTAU<-function(c,C,b,B,x,beta,mu,dados,N){
   return(tau)
 }
 
-# Full conditional for latent variable in asymmetry
+# Full conditional for the latent variable in asymmetry
 atualizarZ<-function(dados,x,beta,mu,tau,psi,N){
   media<-(dados-x%*%beta-mu)*psi/(tau^2+psi^2)
   sd<-sqrt(tau^2/(tau^2+psi^2))
