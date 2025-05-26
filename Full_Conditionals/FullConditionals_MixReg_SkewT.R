@@ -18,15 +18,15 @@ atualizarS<-function(dados,p,mu,covariaveis,beta,sigma2,lambda,nu,N,numcomp,numc
 
 # Full conditional for the weights
 atualizarP<-function(s,numcomp){
-	priori<-matrix(NA,1,numcomp)
-	verossi<-matrix(NA,1,numcomp)
-	for(j in 1:numcomp){
-	  priori[1,j]<-4
-		verossi[1,j]<-sum(s == j)
-	}
-	alpha<-priori+verossi
-	posteriori<-rdirichlet(1,alpha)
-	return(posteriori)
+  priori<-matrix(NA,1,numcomp)
+  verossi<-matrix(NA,1,numcomp)
+  for(j in 1:numcomp){
+    priori[1,j]<-4
+    verossi[1,j]<-sum(s == j)
+  }
+  alpha<-priori+verossi
+  posteriori<-rdirichlet(1,alpha)
+  return(posteriori)
 }
 
 # Full conditional for beta
@@ -46,7 +46,7 @@ atualizarTAU<-function(c,C,b,B,x,beta,mu,u,dados,N){
   return(tau)
 }
 
-# Full conditional for latent variable in asymmetry
+# Full conditional for the latent variable in asymmetry
 atualizarZ<-function(dados,x,beta,mu,tau,psi,u,N){
   media<-(dados-mu-x%*%beta)*psi/(tau^2+psi^2)
   sd<-sqrt(tau^2/(u*(tau^2+psi^2)))
@@ -71,7 +71,7 @@ condicionalNU<-function(nu,u,N){
   return(funcao)
 }
 
-# Metropolis-Hasting for the degrees of freedom 
+# Metropolis-Hastings for the degrees of freedom 
 atualizarNU<-function(nu,u,N,clap,clap.aux,M0,t){
   valoratual<-nu
   valorproposto<-rtnorm(1,valoratual,sqrt(clap*clap.aux),lower=2,upper=40)
