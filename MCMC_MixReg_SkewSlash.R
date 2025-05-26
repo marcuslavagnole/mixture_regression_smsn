@@ -85,27 +85,27 @@ contador<-rep(0,numcomp)
 for(k in 2:NN){
   p[k,]<-atualizarP(s[k-1,],numcomp)
   aux<-cbind(s[k-1,],v,covariaveis)
-	dadosaux<-NULL
-	uaux<-NULL
-	for (i in 1:numcomp){
-	  y[[i]]<-as.matrix(subset(aux, aux[,1] == i))
-		z[[i]]<-atualizarZ(y[[i]][,2],y[[i]][,4:(3+numcov)],beta[k-1,((i*numcov)-numcov+1):(i*numcov)],mu[k-1,i],tau[k-1,i],psi[k-1,i],y[[i]][,3],length(y[[i]][,1]))
-		u[[i]]<-atualizarU(nu[k-1,i],y[[i]][,2],y[[i]][,4:(3+numcov)],beta[k-1,((i*numcov)-numcov+1):(i*numcov)],mu[k-1,i],psi[k-1,i],tau[k-1,i],z[[i]],length(y[[i]][,1]))
-		x<-cbind(y[[i]][,4:(3+numcov)],z[[i]])
-		beta.aux<-c(beta[k-1,((i*numcov)-numcov+1):(i*numcov)],psi[k-1,i])
+  dadosaux<-NULL
+  uaux<-NULL
+  for (i in 1:numcomp){
+    y[[i]]<-as.matrix(subset(aux, aux[,1] == i))
+    z[[i]]<-atualizarZ(y[[i]][,2],y[[i]][,4:(3+numcov)],beta[k-1,((i*numcov)-numcov+1):(i*numcov)],mu[k-1,i],tau[k-1,i],psi[k-1,i],y[[i]][,3],length(y[[i]][,1]))
+    u[[i]]<-atualizarU(nu[k-1,i],y[[i]][,2],y[[i]][,4:(3+numcov)],beta[k-1,((i*numcov)-numcov+1):(i*numcov)],mu[k-1,i],psi[k-1,i],tau[k-1,i],z[[i]],length(y[[i]][,1]))
+    x<-cbind(y[[i]][,4:(3+numcov)],z[[i]])
+    beta.aux<-c(beta[k-1,((i*numcov)-numcov+1):(i*numcov)],psi[k-1,i])
     tau[k,i]<-atualizarTAU(c,C,b,B,x,beta.aux,mu[k-1,i],u[[i]],y[[i]][,2],length(y[[i]][,1]))
     beta.atualiza<-atualizarBETA(b,B,x,mu[k-1,i],tau[k,i],u[[i]],y[[i]][,2],length(y[,1]));beta[k,((i*numcov)-numcov+1):(i*numcov)]<-beta.atualiza[1:numcov];psi[k,i]<-beta.atualiza[numcov+1]
     nu.aux<-atualizarNU(nu[k-1,i],u[[i]],length(y[[i]][,1]),rmw[k-1,(1+3*(i-1))],rmw[k-1,(2+3*(i-1))],rmw[k-1,(3+3*(i-1))],k);nu[k,i]<-nu.aux[1];contador[i]<-contador[i]+nu.aux[2];rmw[k,(1+3*(i-1)):(3+3*(i-1))]<-nu.aux[3:5]
-		dadosaux<-c(dadosaux,y[[i]][,2])
-		uaux<-c(uaux,u[[i]])
-		#Original parameters
-		sigma2[k,i]<- tau[k,i]^2+psi[k,i]^2
-		lambda[k,i]<- psi[k,i]/tau[k,i]
-		mu[k,i]<- -sqrt(sigma2[k,i])*(lambda[k,i]/sqrt(1+lambda[k,i]^2))*sqrt(2/nu[k,i])*(2*nu[k,i]/(2*nu[k,i]-1))
-	}
-	C<-atualizarC(g1,g2,c,numcomp,tau[k,])
-	v1<-data.frame(x1=dados)
-	v2<-data.frame(x1=dadosaux,x2=uaux)
-	v<-unique(merge(v1,v2,by="x1"))
-	s.aux<-atualizarS(dados,p[k,],mu[k,],covariaveis,beta[k,],sigma2[k,],lambda[k,],nu[k,],length(dados),numcomp,numcov);s[k,]<-s.aux[,1];p1[k,]<-s.aux[,2];p2[k,]<-s.aux[,3]        
+    dadosaux<-c(dadosaux,y[[i]][,2])
+    uaux<-c(uaux,u[[i]])
+    #Original parameters
+    sigma2[k,i]<- tau[k,i]^2+psi[k,i]^2
+    lambda[k,i]<- psi[k,i]/tau[k,i]
+    mu[k,i]<- -sqrt(sigma2[k,i])*(lambda[k,i]/sqrt(1+lambda[k,i]^2))*sqrt(2/nu[k,i])*(2*nu[k,i]/(2*nu[k,i]-1))
+  }
+  C<-atualizarC(g1,g2,c,numcomp,tau[k,])
+  v1<-data.frame(x1=dados)
+  v2<-data.frame(x1=dadosaux,x2=uaux)
+  v<-unique(merge(v1,v2,by="x1"))
+  s.aux<-atualizarS(dados,p[k,],mu[k,],covariaveis,beta[k,],sigma2[k,],lambda[k,],nu[k,],length(dados),numcomp,numcov);s[k,]<-s.aux[,1];p1[k,]<-s.aux[,2];p2[k,]<-s.aux[,3]        
 }
