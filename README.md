@@ -7,6 +7,7 @@ The repo includes:
 - **MCMC_MixReg_SkewNormal.R** : MCMC routine for the mixture of regressions based on the skew-normal distribution;
 - **MCMC_MixReg_SkewT.R** : MCMC routine for the mixture of regressions based on the skew-t distribution;
 - **MCMC_MixReg_SkewSlash.R** : MCMC routine for the mixture of regressions based on the skew-slash distribution;
+- **SkewSlash_density.R** : Density function for the skew-slash distribution;
 - Directory **./Full_Conditionals** contains the full conditional distributions for the above models.
 
 [^1]: Zeller, C.B., Cabral, C.R.B. & Lachos, V.H. [Robust mixture regression modeling based on scale mixtures of skew-normal distributions](https://doi.org/10.1007/s11749-015-0460-4). TEST 25, 375–396 (2016).
